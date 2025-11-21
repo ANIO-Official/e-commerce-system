@@ -11,7 +11,7 @@ import Product from "../models/Product"
 
 export let products: Product[] = []
 
-export async function createProducts(){
+export async function fetchProducts(){
 	try{
 		//Fetch all the products data from the API
 		const productData = await fetch('https://dummyjson.com/products')
