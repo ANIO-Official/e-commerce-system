@@ -2,6 +2,8 @@
  Import the Tax & Discount Calculator for Product
  method getPriceWithDiscount
 */
+import taxCalculator from "../utils/taxCalculator"
+import calculateDiscount from "../utils/discountCalculator"
 
 export default class Product {
     id: number
@@ -26,7 +28,10 @@ export default class Product {
      Ideally shows these details to check changes in the product details after an update.
     */
     displayDetails():string{
-        
+        return `${this.title}| product ID: ${this.id} | category: ${this.category} 
+        ${this.description}
+        Base Price: ${this.price}
+        Current Discount: ${this.discountPercentage}`
     }
 
     /*
@@ -35,6 +40,8 @@ export default class Product {
      2. Apply and return the taxes to the discounted price to get final price.
     */
     getPriceWithDiscount(){
-
+        const withDiscount = this.price - calculateDiscount(this)
+	    const finalPrice = withDiscount - taxCalculator(this, withDiscount) //apply Tax after discount
+	return `The final cost of ${this.title} with tax and applied discount is $${finalPrice}.`
     }
 }
