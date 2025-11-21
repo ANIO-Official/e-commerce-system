@@ -8,25 +8,18 @@
  4. Update Catch with Custom Error imported from Error Handler Module.
 */
 import Product from "../models/Product"
-
-export let products: Product[] = []
+import { DataError, FetchError } from "../utils/errorHandler"
+export let data: Product[] = []
 
 export async function fetchProducts(){
 	try{
 		//Fetch all the products data from the API
 		const productData = await fetch('https://dummyjson.com/products')
-		const data = await productData.json()
-		
-		/*
-         Create New Products & Push to products Array
-         Do not type product of type object, the base object type does not
-         contain properties these specific objects. Instead type by object
-         containing specific values
-         */
-		return products = data.map((product: { id: number; title: string; description: string; category: string; price: number; discountPercentage: number }) => new Product (product.id, product.title, product.description,
-		product.category, product.price, product.discountPercentage))
-		
+		if (!productData.ok){
+			throw new FetchError('Failed to fetch product catalog from API.')
+		}
+		data = await productData.json()	
 	}catch(e){
-        console.error('Fetch Error', 'Could not fetch data from API to create class.')
+        new DataError('Could not parse data from API.')
     }
 }
