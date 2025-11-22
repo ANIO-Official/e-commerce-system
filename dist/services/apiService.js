@@ -1,9 +1,9 @@
 /*
  Import:
- - isProduct interface to type the product property of data
  - Error Classes to Add custom error handline.
  Export:
- - data array to access in main file.
+ - catalog variable that contain specifically the products property
+   containing the array of product objects of the parsed response.
  Inside an async function
  1. Fetch all the products from an API (An object holding a property called 'products' holding an array of product objects)
  2. Place the fetch request within the try. Catch the error when Promise fails."
