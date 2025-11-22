@@ -49,4 +49,4 @@ async function fetchAndDisplayProductDetails(product:Product){
 
 console.log(fetchAndDisplayProductDetails(products[10]), products[10].getPriceWithDiscount) 
 
-console.log(fetchAndDisplayProductDetails(products[11]), products[11].getPriceWithDiscount ) 
+console.log(fetchAndDisplayProductDetails(products[11]), products[11].getPriceWithDiscount) 

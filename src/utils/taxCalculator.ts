@@ -9,7 +9,7 @@ import Product from "../models/Product"
 
 export default function taxCalculator(product: Product, price:number):number{
 if (product.category === 'groceries'){
-	return price * (1 * 0.03)
+	return parseFloat((price * (1 * 0.03)).toFixed(2))
 }
-return price * (1 * 0.0475)
+return parseFloat((price * (1 * 0.0475)).toFixed(2))
 }

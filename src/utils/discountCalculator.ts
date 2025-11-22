@@ -7,5 +7,5 @@
 import Product from "../models/Product"
 
 export default function calculateDiscount(product: Product):number{
-	return product.price * product.discountPercentage
+	return parseFloat((product.price * (product.discountPercentage/100)).toFixed(2))
 }
