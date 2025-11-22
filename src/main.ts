@@ -5,7 +5,7 @@
 */
 import Product from "./models/Product"
 import * as APIService from "./services/apiService"
-import { DataError } from "./utils/errorHandler"
+import { DataError, FetchError } from "./utils/errorHandler"
 
 export let products: Product[] = []
 /*
@@ -36,3 +36,17 @@ catch(e){
  new DataError('Unable to instance new products with parsed data from API.')
 }
 
+async function fetchAndDisplayProductDetails(product:Product){
+    try{
+        return fetch(product.displayDetails())
+    }
+    catch(e){
+        new FetchError(`Unable to fetch and perform displayDetails method of ${product.title}.`)
+    }
+}
+
+//Sample Product information being display: Log product details & final price to console.
+
+console.log(fetchAndDisplayProductDetails(products[10]), products[10].getPriceWithDiscount) 
+
+console.log(fetchAndDisplayProductDetails(products[11]), products[11].getPriceWithDiscount ) 
