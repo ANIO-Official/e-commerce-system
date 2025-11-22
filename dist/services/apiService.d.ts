@@ -1,4 +1,3 @@
-import Product from "../models/Product";
-export declare let data: Product[];
-export declare function fetchProducts(): Promise<void>;
+export declare let catalog: [];
+export declare function fetchProducts(): Promise<[]>;
 //# sourceMappingURL=apiService.d.ts.map

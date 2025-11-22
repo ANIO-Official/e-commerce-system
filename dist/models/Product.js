@@ -40,7 +40,4 @@ export default class Product {
         return `The final cost of ${this.title} with tax and applied discount is $${finalPrice}.`;
     }
 }
-//Testing
-const paperBag = new Product(33, 'Paper Bag', 'A brown paper bag.', 'Bags', 9.99, 7.17);
-console.log(paperBag.getPriceWithDiscount());
 //# sourceMappingURL=Product.js.map

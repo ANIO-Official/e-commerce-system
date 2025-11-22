@@ -1,26 +1,30 @@
 /*
- Import the Products to make new Array variable that holds objects
- of the class.
+ Import:
+ - isProduct interface to type the product property of data
+ - Error Classes to Add custom error handline.
+ Export:
+ - data array to access in main file.
  Inside an async function
- 1. Get all the products from an API (An object called 'products' holding an array of product objects)
- 2. For each product object in the product's array, create a new instance of the Product class and set up their property values.
- 3. Place the fetch request within the try. Catch the error when Promise fails."
- 4. Update Catch with Custom Error imported from Error Handler Module.
+ 1. Fetch all the products from an API (An object holding a property called 'products' holding an array of product objects)
+ 2. Place the fetch request within the try. Catch the error when Promise fails."
+ 3. Add a conditional to check ok property of response (productData)
+ 4. Add Custom Errors imported from Error Handler Module.
 */
-import Product from "../models/Product.js";
 import { DataError, FetchError } from "../utils/errorHandler.js";
-export let data = [];
+export let catalog;
 export async function fetchProducts() {
     try {
         //Fetch all the products data from the API
         const productData = await fetch('https://dummyjson.com/products');
         if (!productData.ok) {
-            throw new FetchError('Failed to fetch product catalog from API.');
+            console.error(new FetchError('Failed to fetch product catalog from API.'));
         }
-        data = await productData.json();
+        const data = await productData.json();
+        catalog = data.products;
     }
     catch (e) {
-        new DataError('Could not parse data from API.');
+        console.error(new DataError('Could not  parse data from API to create class.'));
     }
+    return catalog;
 }
 //# sourceMappingURL=apiService.js.map
