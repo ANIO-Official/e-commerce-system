@@ -1,14 +1,17 @@
 /*
  Import:
- - isProduct interface to type the product property of data
- - Error Classes to Add custom error handline.
+ - isProduct interface to type the variable catalog that holds the product objects
+ - Error Classes to Add custom error handling.
  Export:
- - data array to access in main file.
+ - catalog variable. A data array to access in main file.
  Inside an async function
  1. Fetch all the products from an API (An object holding a property called 'products' holding an array of product objects)
- 2. Place the fetch request within the try. Catch the error when Promise fails."
- 3. Add a conditional to check ok property of response (productData)
- 4. Add Custom Errors imported from Error Handler Module.
+ 2. Place the fetch request within the try. Catch the error when Promise fails.
+ 3. Add a conditional to check ok property of response (productData) to see if it returns as expected.
+ 4. Add a conditional to check if the data parsed exist.
+ 5. Apply Custom Errors imported from Error Handler Module.
+ 6. Finally to confirm operation complete.
+ 7. Return the value of catalog.
 */
 
 import type { isProduct } from "../main"

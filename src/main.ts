@@ -1,6 +1,7 @@
 /*
  Import Product class for type checking.
  Import entire API service module for access to exported
+ Import custom Error classes for error handling.
  products array of Product objects and async fetch Request function.
 */
 import Product from "./models/Product"
@@ -8,12 +9,8 @@ import * as APIService from "./services/apiService"
 import {DataError, IndexingError} from "./utils/errorHandler"
 
 /*
- Create New Products & Push to products Array
- Do not type product of type object, the base object type does not
- contain properties these specific objects have nor are they of
- type Product yet. Instead type by an interface that contains 
- the shape a product object should have. Appeases TypeScript's
- type checking for product in map method. 
+ An interface to check that the objects from the API data is infact an object
+ Product with the shape of a Product.  
 */
 export interface isProduct{
   "id": number
@@ -26,8 +23,8 @@ export interface isProduct{
 
 /*
  1. Run the Fetch Products Function
- 2. Map the resulting catalog to new Products. Cache into an array variable.
- 3. In another function, pass specific array items to return details of the item, including price.
+ 2. Map the resulting catalog to new Products. Cache into an array variable products of type Product.
+ 3. In another function, pass specific array items to return details of the item including total price with discount applied.
 */
 
 await APIService.fetchProducts() //error handling occurs in the apiService module.
@@ -42,10 +39,10 @@ function getProductInformation(product:Product){
     if(product === undefined || null){
         throw new IndexingError(`This product does not exist.`)
     }
-    //Continue when id does exitst
+    //Continue when it does exist
     try{
-        console.log(product.displayDetails())
-        console.log(product.getPriceWithDiscount())
+        console.log(product.displayDetails()) //display its details | run the displayDetails method
+        console.log(product.getPriceWithDiscount()) //display its Price with discount plus tax. | run 
 
     }catch(e){
         if(e instanceof DataError){ 
@@ -84,7 +81,7 @@ getProductInformation(products[7]) //Clicked Product 8
     /*
      Simulates clicking a product with invalid properties.
      A product with invalid id but does exist. Should be red underlined as incorrect:
-     Shouldreturn an Data error.
+     Should return an Data error.
     */
     products[15].id = null
     getProductInformation(products[15])

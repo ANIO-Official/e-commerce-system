@@ -1,6 +1,7 @@
 /*
- Import the Tax & Discount Calculator for Product
- method getPriceWithDiscount
+ Import the Tax & Discount Calculator for Product method getPriceWithDiscount
+ Import custom error Data Error for data handling
+ Export Product class for type checking and instancing
 */
 import taxCalculator from "../utils/taxCalculator"
 import calculateDiscount from "../utils/discountCalculator"
@@ -26,7 +27,6 @@ export default class Product {
 
     /*
      Display a template literal of the current product details.
-     Ideally shows these details to check changes in the product details after an update.
     */
     displayDetails():string{
         if(!this.title || !this.id || !this.category || !this.description || !this.price){

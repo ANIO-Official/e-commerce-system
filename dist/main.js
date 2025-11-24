@@ -1,6 +1,7 @@
 /*
  Import Product class for type checking.
  Import entire API service module for access to exported
+ Import custom Error classes for error handling.
  products array of Product objects and async fetch Request function.
 */
 import Product from "./models/Product.js";
@@ -8,8 +9,8 @@ import * as APIService from "./services/apiService.js";
 import { DataError, IndexingError } from "./utils/errorHandler.js";
 /*
  1. Run the Fetch Products Function
- 2. Map the resulting catalog to new Products. Cache into an array variable.
- 3. In another function, pass specific array items to return details of the item, including price.
+ 2. Map the resulting catalog to new Products. Cache into an array variable products of type Product.
+ 3. In another function, pass specific array items to return details of the item including total price with discount applied.
 */
 await APIService.fetchProducts(); //error handling occurs in the apiService module.
 const products = APIService.catalog.map((product) => new Product(product.id, product.title, product.description, product.category, product.price, product.discountPercentage));
@@ -19,10 +20,10 @@ function getProductInformation(product) {
     if (product === undefined || null) {
         throw new IndexingError(`This product does not exist.`);
     }
-    //Continue when id does exitst
+    //Continue when it does exist
     try {
-        console.log(product.displayDetails());
-        console.log(product.getPriceWithDiscount());
+        console.log(product.displayDetails()); //display its details | run the displayDetails method
+        console.log(product.getPriceWithDiscount()); //display its Price with discount plus tax. | run 
     }
     catch (e) {
         if (e instanceof DataError) {
@@ -59,7 +60,7 @@ getProductInformation(products[7]); //Clicked Product 8
 /*
  Simulates clicking a product with invalid properties.
  A product with invalid id but does exist. Should be red underlined as incorrect:
- Shouldreturn an Data error.
+ Should return an Data error.
 */
 products[15].id = null;
 getProductInformation(products[15]);
