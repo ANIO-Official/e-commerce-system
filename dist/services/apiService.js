@@ -1,9 +1,9 @@
 /*
  Import:
+ - isProduct interface to type the product property of data
  - Error Classes to Add custom error handline.
  Export:
- - catalog variable that contain specifically the products property
-   containing the array of product objects of the parsed response.
+ - data array to access in main file.
  Inside an async function
  1. Fetch all the products from an API (An object holding a property called 'products' holding an array of product objects)
  2. Place the fetch request within the try. Catch the error when Promise fails."
@@ -17,13 +17,27 @@ export async function fetchProducts() {
         //Fetch all the products data from the API
         const productData = await fetch('https://dummyjson.com/products');
         if (!productData.ok) {
-            console.error(new FetchError('Failed to fetch product catalog from API.'));
+            //return error, let user know there was an issue fetching the data
+            throw new FetchError('Failed to fetch product catalog from API. Check URL or API status.');
         }
         const data = await productData.json();
+        if (data === undefined || null) {
+            //return error, let user know data was undefined.
+            throw new DataError('Data undefined. Could not parse data from API. Check fetch request, API status, or syntax in apiService module.');
+        }
         catalog = data.products;
     }
     catch (e) {
-        console.error(new DataError('Could not  parse data from API to create class.'));
+        //return error, preventing catalog returning as undefined causing later issues in code.
+        if (e instanceof DataError) {
+            return console.error('Data Error:', e.message);
+        }
+        if (e instanceof FetchError) {
+            return console.error('Fetch Error:', e.message);
+        }
+    }
+    finally {
+        console.log('Fetch attempt to API complete: Fetch all products from dummyjson.');
     }
     return catalog;
 }

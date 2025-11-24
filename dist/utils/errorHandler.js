@@ -15,4 +15,10 @@ export class FetchError extends Error {
         this.name = "Fetch Error";
     }
 }
+export class IndexingError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "Indexing Error";
+    }
+}
 //# sourceMappingURL=errorHandler.js.map

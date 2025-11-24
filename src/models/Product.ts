@@ -4,6 +4,7 @@
 */
 import taxCalculator from "../utils/taxCalculator"
 import calculateDiscount from "../utils/discountCalculator"
+import { DataError } from "../utils/errorHandler"
 
 export default class Product {
     id: number
@@ -28,6 +29,9 @@ export default class Product {
      Ideally shows these details to check changes in the product details after an update.
     */
     displayDetails():string{
+        if(!this.title || !this.id || !this.category || !this.description || !this.price){
+            throw new DataError(`Failed to load product details. Check that all data fields are valid.`)
+        }
         return `${this.title}| product ID: ${this.id} | category: ${this.category} 
         ${this.description}
         Base Price: ${this.price}
@@ -39,9 +43,12 @@ export default class Product {
      1. Apply the discount first. (Taxes cannot be discounted)
      2. Apply and return the taxes to the discounted price to get final price.
     */
-    getPriceWithDiscount(){
-        const withDiscount = this.price - calculateDiscount(this)
-	    const finalPrice = withDiscount - taxCalculator(this, withDiscount) //apply Tax after discount
+    getPriceWithDiscount():string{
+        if(!this.discountPercentage){
+            throw new DataError(`${this.title} does not have a discount percentage. Cannot calulate final price with discount. Update discount percentage with a valid input.`)
+        }
+        const withDiscount:number = this.price - calculateDiscount(this)
+	    const finalPrice:number = withDiscount + taxCalculator(this, withDiscount) //apply Tax after discount
 	return `The final cost of ${this.title} with tax and applied discount is $${finalPrice}.`
     }
 }

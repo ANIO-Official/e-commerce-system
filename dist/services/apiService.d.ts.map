@@ -1,1 +1,1 @@
-{"version":3,"file":"apiService.d.ts","sourceRoot":"","sources":["../../src/services/apiService.ts"],"names":[],"mappings":"AAeA,eAAO,IAAI,OAAO,EAAG,EAAE,CAAA;AAEvB,wBAAsB,aAAa,gBAalC"}
+{"version":3,"file":"apiService.d.ts","sourceRoot":"","sources":["../../src/services/apiService.ts"],"names":[],"mappings":"AAaA,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,SAAS,CAAA;AAExC,eAAO,IAAI,OAAO,EAAG,SAAS,EAAE,CAAA;AAEhC,wBAAsB,aAAa,gCA0BlC"}

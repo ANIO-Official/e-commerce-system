@@ -16,3 +16,10 @@
 		this.name = "Fetch Error"
 		}
 	}
+
+	export class IndexingError extends Error {
+		constructor(message:string){
+		super(message)
+		this.name = "Indexing Error"
+		}
+	}

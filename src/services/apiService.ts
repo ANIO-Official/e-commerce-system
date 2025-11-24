@@ -13,19 +13,32 @@
 
 import type { isProduct } from "../main"
 import { DataError, FetchError } from "../utils/errorHandler"
-export let catalog : []
+export let catalog : isProduct[]
 
 export async function fetchProducts(){
 	try{
 		//Fetch all the products data from the API
 		const productData = await fetch('https://dummyjson.com/products')
 		if (!productData.ok){
-			console.error(new FetchError('Failed to fetch product catalog from API.'))
+			//return error, let user know there was an issue fetching the data
+			throw new FetchError('Failed to fetch product catalog from API. Check URL or API status.')
 		}
 		const data = await productData.json()	
-		 catalog = data.products
+		if(data === undefined || null ){
+			//return error, let user know data was undefined.
+			throw new DataError('Data undefined. Could not parse data from API. Check fetch request, API status, or syntax in apiService module.')
+		}
+		catalog = data.products
 	}catch(e){
-        console.error(new DataError('Could not  parse data from API to create class.')) 
-    }
+		//return error, preventing catalog returning as undefined causing later issues in code.
+        if(e instanceof DataError){
+			return console.error('Data Error:', e.message)
+		}
+		if (e instanceof FetchError){
+			return console.error('Fetch Error:', e.message)
+		}
+    }finally{
+		console.log('Fetch attempt to API complete: Fetch all products from dummyjson.')
+	}
 	return catalog
 }
