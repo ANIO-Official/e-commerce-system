@@ -111,6 +111,7 @@ Quick brief about process. Here are my steps/general steps:
  2. **Challenges I encountered and solved**
 
   A lot of the challenges I faced occurred towards the end of the project. Specifically when I went back to test and bug test the code. 
+  
   ----------------------------------------------------------------------
   Challenge 1: Incorrect Formulas
   
